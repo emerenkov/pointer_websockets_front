@@ -4,6 +4,7 @@ import toolState from "../store/toolState";
 import Brush from "../tools/Brush";
 import canvasState from "../store/canvasState";
 import Rect from "../tools/Rect";
+import Circle from "../tools/Circle";
 
 const Toolbar = () => {
   return (
@@ -20,7 +21,12 @@ const Toolbar = () => {
                 canvasState.canvas
               ))}
       />
-      <button className="toolbar__btn circle" />
+      <button className="toolbar__btn circle"
+              onClick={() => toolState.setTool(new Circle(
+                // @ts-ignore
+                canvasState.canvas
+              ))}
+      />
       <button className="toolbar__btn eraser" />
       <button className="toolbar__btn line" />
       <input style={{marginLeft: 10}} type="color" />

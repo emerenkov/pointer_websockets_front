@@ -2,6 +2,8 @@
 export default class Tools {
   public canvas;
   public ctx;
+  public socket;
+  public id;
 
 
   constructor(canvas: {
@@ -9,15 +11,13 @@ export default class Tools {
       onmousemove: (e: { pageX: number; pageY: number; target: { offsetLeft: number; offsetTop: number; }; }) => void;
       onmousedown: (e: { pageX: number; pageY: number; target: { offsetLeft: number; offsetTop: number; }; }) => void;
       onmouseup: (e: Event ) => void;
-      // onmouseup: null | number;
-      // onmousedown: null | EventTarget;
-      // onmousemove: null | EventTarget;
       new(): HTMLCanvasElement; getContext?: any; prototype?: HTMLCanvasElement;
-  }) {
+  }, socket: any, id:any) {
+    this.socket = socket;
+    this.id = id;
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.destroyEvents()
-    console.log(this.ctx)
   }
   // @ts-ignore
   set fillColor(color) {

@@ -1,4 +1,4 @@
-import Tool from "./Tools";
+import Tools from "./Tools";
 import Brush from "./Brush";
 
 export default class Eraser extends Brush {

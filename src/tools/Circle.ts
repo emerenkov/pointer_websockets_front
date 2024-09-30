@@ -11,8 +11,8 @@ export default class Circle extends Tools {
     onmouseup: (e: Event ) => void;
     new(): HTMLCanvasElement; getContext?: any; prototype?: HTMLCanvasElement;
     toDataURL(type?: string, quality?: any): string;
-  }) {
-    super(canvas);
+  }, socket:any, id:any) {
+    super(canvas, socket, id);
     this.listen();
   }
 

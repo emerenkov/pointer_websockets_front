@@ -15,6 +15,23 @@ const Toolbar = () => {
     toolState.setStrokeColor(e.target.value)
     toolState.setFillColor(e.target.value)
   }
+
+
+  // todo Запомнить!!! Так можно скачивать документы и изображения с сайтов!!!!
+  const download = () => {
+    // @ts-ignore
+    const dataUrl = canvasState.canvas.toDataURL()
+    console.log(dataUrl)
+    const a = document.createElement('a')
+    a.href = dataUrl;
+    a.download = canvasState.sessionId + '.jpg'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    // todo Запомнить!!! Так можно скачивать документы и изображения с сайтов!!!!
+  }
+
+
   // @ts-ignore
   return (
     <div className="toolbar">
@@ -22,12 +39,12 @@ const Toolbar = () => {
       <button className="toolbar__btn brush"
               onClick={() => toolState.setTool(new Brush(
         // @ts-ignore
-                canvasState.canvas
+                canvasState.canvas, canvasState.socket, canvasState.sessionId
       ))} />
       <button className="toolbar__btn rect"
               onClick={() => toolState.setTool(new Rect(
                 // @ts-ignore
-                canvasState.canvas
+                canvasState.canvas, canvasState.socket, canvasState.sessionId
               ))}
       />
       <button className="toolbar__btn circle"
@@ -58,7 +75,9 @@ const Toolbar = () => {
       <button className="toolbar__btn redo"
               onClick={() => canvasState.redo()}
       />
-      <button className="toolbar__btn save" />
+      <button className="toolbar__btn save"
+              onClick={() => download()}
+      />
     </div>
   );
 };

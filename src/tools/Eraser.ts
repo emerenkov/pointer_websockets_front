@@ -1,10 +1,10 @@
-import Tool from "./Tools";
+import Tools from "./Tools";
 import Brush from "./Brush";
 
 export default class Eraser extends Brush {
   // @ts-ignore
-  constructor(canvas) {
-    super(canvas);
+  constructor(canvas, socket, id) {
+    super(canvas, socket, id);
   }
 
 // @ts-ignore

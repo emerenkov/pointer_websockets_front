@@ -4,6 +4,8 @@ import Toolbar from "./components/Toolbar";
 import SettingBar from "./components/SettingBar";
 import Canvas from "./components/Canvas";
 
+import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+
 interface ICh {
   data: number
   // children?: JSX.Element|JSX.Element[];
@@ -18,11 +20,20 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Toolbar/>
-      <SettingBar/>
-      <Canvas/>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          <Route path='/:id' element={
+            <>
+              <Toolbar/>
+              <SettingBar/>
+              <Canvas/>
+            </>
+          } />
+          <Route path="*" element={<Navigate to={`f${(+new Date).toString(16)}`} />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

@@ -4,6 +4,8 @@ export default class Rect extends Tools {
   public mouseDown = false;
   public startX: any;
   public startY: any;
+  public width: any;
+  public height: any;
   public saved: any;
   constructor(canvas: {
     onmousemove: (e: { pageX: number; pageY: number; target: { offsetLeft: number; offsetTop: number; }; }) => void;
@@ -11,8 +13,8 @@ export default class Rect extends Tools {
     onmouseup: (e: Event ) => void;
     new(): HTMLCanvasElement; getContext?: any; prototype?: HTMLCanvasElement;
     toDataURL(type?: string, quality?: any): string;
-  }) {
-    super(canvas);
+  }, socket:any, id:any) {
+    super(canvas, socket, id);
     this.listen();
   }
 
@@ -24,6 +26,18 @@ export default class Rect extends Tools {
 
   mouseUpHandler(e: Event) {
     this.mouseDown = false;
+    this.socket.send(JSON.stringify({
+      method: 'draw',
+      id: this.id,
+      figure: {
+        type: 'rect',
+        x: this.startX,
+        y: this.startY,
+        width: this.width,
+        height: this.height,
+        color: this.ctx.fillStyle,
+      }
+    }))
   }
 
   mouseDownHandler(e: { pageX: number; pageY: number; target: { offsetLeft: number; offsetTop: number; }}) {
@@ -39,9 +53,9 @@ export default class Rect extends Tools {
     if (this.mouseDown) {
       let currentX = e.pageX - e.target.offsetLeft;
       let currentY = e.pageY - e.target.offsetTop;
-      let width = currentX - this.startX;
-      let height = currentY - this.startY;
-      this.draw(this.startX, this.startY, width, height);
+      this.width = currentX - this.startX;
+      this.height = currentY - this.startY;
+      this.draw(this.startX, this.startY, this.width, this.height);
     }
   }
 
@@ -58,6 +72,14 @@ export default class Rect extends Tools {
       this.ctx.fill();
       this.ctx.stroke();
     }
+  }
+
+  static staticDraw(ctx:any, x: number, y: number, w: number, h: number, color:any) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.rect(x, y, w, h);
+    ctx.fill();
+    ctx.stroke();
   }
 
 }

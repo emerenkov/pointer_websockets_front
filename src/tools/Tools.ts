@@ -2,6 +2,8 @@
 export default class Tools {
   public canvas;
   public ctx;
+
+
   constructor(canvas: {
       toDataURL(type?: string, quality?: any): string;
       onmousemove: (e: { pageX: number; pageY: number; target: { offsetLeft: number; offsetTop: number; }; }) => void;
@@ -16,6 +18,20 @@ export default class Tools {
     this.ctx = canvas.getContext('2d');
     this.destroyEvents()
     console.log(this.ctx)
+  }
+  // @ts-ignore
+  set fillColor(color) {
+    this.ctx.fillStyle = color
+  }
+
+  // @ts-ignore
+  set strokeColor(color) {
+    this.ctx.strokeStyle = color
+  }
+
+  // @ts-ignore
+  set lineWidth(wigth) {
+    this.ctx.lineWidth = wigth
   }
 
   destroyEvents() {
